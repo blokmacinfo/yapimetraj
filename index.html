@@ -61,14 +61,15 @@ h1{font-size:20px;font-weight:800;letter-spacing:-.02em;margin:0 0 10px}
 h3{font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--t);margin:26px 0 12px;padding:7px 10px;border:0;border-left:4px solid var(--a);border-radius:0 8px 8px 0;background:linear-gradient(90deg,color-mix(in srgb,var(--a) 14%,transparent),transparent 90%)}
 h3:first-child{margin-top:0}
 #bt{gap:10px;align-items:center}#bt input{width:260px;min-width:0}#bt button{min-width:240px}
+.fc{border:1px solid var(--b);border-radius:10px;padding:8px 10px;margin:8px 0}.fc table{margin-top:4px}.fc td{padding:3px 4px}.fc input{width:78px;padding:3px 6px}
 </style></head><body><div id="app">
-<div class="pn" id="L"><h1>Yapı Ön Boyutlandırma</h1><h3>Yapı türü</h3><select id="ty"><option value="steel">Çelik Yapı</option><option value="rc">Betonarme Yapı</option></select><h3>Tesis / bölge</h3><select id="loc"><option value="">Manuel</option><option value="erd">Erdemir · Ereğli (Zonguldak)</option><option value="isd">İsdemir · İskenderun (Hatay)</option></select><select id="zs" style="margin-top:5px"><option value="ZC">Zemin sınıfı: ZC</option><option value="ZD">Zemin sınıfı: ZD</option></select><div id="seis" style="margin-top:6px"></div><select id="dd" style="margin-top:5px"><option value="1">Deprem: DD-1</option><option value="2" selected>Deprem: DD-2 (475 yıl)</option><option value="3">Deprem: DD-3</option><option value="4">Deprem: DD-4</option></select><div id="sto"><select id="grade" style="margin-top:5px"><option>S235</option><option selected>S275</option><option>S355</option></select><select id="cls" style="margin-top:5px"><option value="CD">Vinç bina sınıfı C/D (L/600)</option><option value="AB">Vinç bina sınıfı A/B (L/1000)</option></select></div><div id="stp"><h3>Geometri</h3><select id="roof" style="margin-bottom:6px"><option value="truss">Makaslı çatı</option><option value="beam">Tek kirişli çatı</option></select><div class="g" id="nums"></div><label style="display:block;margin-top:6px"><input type="checkbox" id="brace" checked> Çaprazlar</label><label style="display:block;margin-top:4px"><input type="checkbox" id="crane" checked> Vinç kirişi ekle</label><select id="ft" style="margin-top:6px"><option value="tekil">Temel: Tekil temel</option><option value="radye">Temel: Radye</option><option value="kazik">Temel: Kazıklı (çelik boru kazık)</option></select>
+<div class="pn" id="L"><h1>Yapı Ön Boyutlandırma</h1><h3>Yapı türü</h3><select id="ty"><option value="steel">Çelik Yapı</option><option value="rc">Betonarme Yapı</option></select><h3>Tesis / bölge</h3><select id="loc"><option value="">Manuel</option><option value="erd">Erdemir · Ereğli (Zonguldak)</option><option value="isd">İsdemir · İskenderun (Hatay)</option></select><select id="zs" style="margin-top:5px"><option value="ZC">Zemin sınıfı: ZC</option><option value="ZD">Zemin sınıfı: ZD</option></select><div id="seis" style="margin-top:6px"></div><select id="dd" style="margin-top:5px"><option value="1">Deprem: DD-1</option><option value="2" selected>Deprem: DD-2 (475 yıl)</option><option value="3">Deprem: DD-3</option><option value="4">Deprem: DD-4</option></select><div id="sto"><select id="grade" style="margin-top:5px"><option>S235</option><option selected>S275</option><option>S355</option></select><select id="cls" style="margin-top:5px"><option value="CD">Vinç bina sınıfı C/D (L/600)</option><option value="AB">Vinç bina sınıfı A/B (L/1000)</option></select></div><div id="stp"><h3>Geometri</h3><select id="roof" style="margin-bottom:6px"><option value="truss">Makaslı çatı</option><option value="beam">Tek kirişli çatı</option></select><div class="g" id="nums"></div><label style="display:block;margin-top:6px"><input type="checkbox" id="brace" checked> Çaprazlar</label><label style="display:block;margin-top:4px"><input type="checkbox" id="crane" checked> Vinç kirişi ekle</label><select id="ft" style="margin-top:6px"><option value="tekil">Temel: Tekil temel</option><option value="radye">Temel: Radye</option></select>
 <h3>Profil kütüphanesi · eleman grupları</h3><div class="r"><button class="pr" onclick="sizeRun()">Optimum kesitleri seç</button></div><label style="display:block;margin-top:5px"><input type="checkbox" id="auto" checked> Değişimde otomatik boyutlandır</label><div class="g" id="roles" style="grid-template-columns:1fr 1fr"></div>
-<p style="color:var(--m);font-size:11px">Grup profili değişince o gruptaki tüm elemanlar güncellenir. Tek eleman için modelden seçin. Vinç kirişi ön seçimdir; kesin seçim için üretici verileri gerekir.</p></div><div id="rcp" style="display:none"><h3>Betonarme geometri</h3><div class="g" id="rcn"></div><label style="display:block;margin-top:6px"><input type="checkbox" id="pv"> Perde duvar ekle</label><select id="rft" style="margin-top:6px"><option value="tekil">Temel: Tekil temel</option><option value="radye">Temel: Radye</option></select></div></div>
+<p style="color:var(--m);font-size:11px">“Optimum kesitleri seç” temel boyutunu, yüksekliğini/kalınlığını ve donatısını da hesaplar (Temel sekmesi). Grup profili değişince o gruptaki tüm elemanlar güncellenir. Tek eleman için modelden seçin. Vinç kirişi ön seçimdir; kesin seçim için üretici verileri gerekir.</p></div><div id="rcp" style="display:none"><h3>Betonarme geometri</h3><div class="g" id="rcn"></div><label style="display:block;margin-top:6px"><input type="checkbox" id="pv"> Perde duvar ekle</label><select id="rft" style="margin-top:6px"><option value="tekil">Temel: Tekil temel</option><option value="radye">Temel: Radye</option></select></div></div>
 <div id="M"><canvas id="cv"></canvas><div id="tb"></div><div id="ht">Sol: döndür · Sağ: kaydır · Tekerlek: yakınlaş · Tık: seç · Gezinti: W A S D / Q E · Del: sil</div><div id="tt"></div></div>
 <div class="pn" id="R"><h3>Seçili eleman</h3><div id="sel" style="color:var(--m)">Modelde bir elemana tıklayın.</div>
 <div id="wr"></div><div class="tbs" id="tabs"></div><div class="tc" id="t0"><h3>Özet</h3><div class="k" id="kp"></div><h3>Ön boyutlandırma</h3><div id="sz" style="font-size:12px;color:var(--m)">Bölge seçin veya “Optimum kesitleri seç” düğmesine basın.</div><h3 id="hb">Profil metrajı</h3><table id="bom"></table><div id="anc"></div><div id="fnd" hidden></div>
-</div><div class="tc" id="t1" hidden></div><div class="tc" id="t2" hidden></div><div class="tc" id="t3" hidden></div><div class="tc" id="t4" hidden></div><div class="tc" id="t5" hidden></div><div class="tc" id="t6" hidden></div>
+</div><div class="tc" id="t1" hidden></div><div class="tc" id="t2" hidden></div><div class="tc" id="t3" hidden></div><div class="tc" id="t4" hidden></div><div class="tc" id="t5" hidden></div><div class="tc" id="t6" hidden></div><div class="tc" id="t7" hidden></div>
 </div><div id="bt"><input id="ttl" placeholder="İşin adı (Excel başlığı)"><button class="pr" id="xb">KEŞİF EXPORT (.XLSX)</button></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
@@ -79,9 +80,9 @@ const KT={IPE:'I',HEA:'I',HEB:'I',IPN:'I',UPN:'U',RHS:'R',SHS:'R',CHS:'C'},LIB={
 LB.split(';').forEach(s=>{const a=s.split('|');LIB[a[0]]={n:a[0],k:KT[a[0].slice(0,3)],h:+a[1],b:+a[2],tw:+a[3],tf:+a[4],kg:+a[5]}});
 const RO={kolon:['Kolon','#3b82f6','HEA 300'],cephekolon:['Rüzgar kolonu','#60a5fa','HEA 200'],kiris:['Çatı kirişi','#ef4444','IPE 360'],makasUst:['Makas üst başlık','#ef4444','SHS 120x120x5'],makasAlt:['Makas alt başlık','#f97316','SHS 100x100x5'],makasDikme:['Makas dikme','#eab308','SHS 60x60x4'],makasCapraz:['Makas çapraz','#eab308','SHS 60x60x4'],asik:['Aşık','#22c55e','IPE 160'],kusak:['Kuşak','#14b8a6','UPN 120'],catiCapraz:['Çatı çaprazı','#a855f7','CHS 33.7x3.2'],duvarCapraz:['Cephe çaprazı','#ec4899','CHS 48.3x3.2'],vincKirisi:['Vinç kirişi','#0ea5e9','IPE 500'],konsol:['Vinç konsolu','#84cc16','IPE 300']};
 const IF={kolon:['COLUMN','COLUMN'],cephekolon:['COLUMN','COLUMN'],kiris:['BEAM','BEAM'],makasUst:['MEMBER','CHORD'],makasAlt:['MEMBER','CHORD'],makasDikme:['MEMBER','POST'],makasCapraz:['MEMBER','BRACE'],asik:['MEMBER','PURLIN'],kusak:['MEMBER','MEMBER'],catiCapraz:['MEMBER','BRACE'],duvarCapraz:['MEMBER','BRACE'],vincKirisi:['BEAM','BEAM'],konsol:['MEMBER','MEMBER']};const vp=t=>t<=5?'IPE 400':t<=10?'IPE 500':t<=20?'IPE 600':'HEB 400';
-const P={roof:'truss',W:20,L:40,H:6,bay:5,ang:8,pan:4,ps:1.5,gs:1.5,brace:1,fa:1.2,fd:.6,loc:'',Ss:.37,S1:.1,s0:.75,Rd:4,zs:'ZC',crane:1,ton:10,hc:4.5,ft:'tekil',rt:.5,prof:{}};for(const k in RO)P.prof[k]=RO[k][2];
+const P={roof:'truss',W:20,L:40,H:6,bay:5,ang:8,pan:4,ps:1.5,gs:1.5,brace:1,qa:150,ks:20000,hmin:.6,rm:.5,gw:6,fs:{},loc:'',Ss:.37,S1:.1,s0:.75,Rd:4,zs:'ZC',crane:1,ton:10,hc:4.5,ft:'tekil',rt:.5,prof:{}};for(const k in RO)P.prof[k]=RO[k][2];
 let ovr={},dl=new Set(),ex=[],sel=null,M=[],cpn=0;const rad=Math.PI/180,$=i=>document.getElementById(i),V=THREE.Vector3;
-const NUM=[['W','Genişlik (m)'],['L','Uzunluk (m)'],['H','Kolon yüksekliği (m)'],['bay','Aks aralığı (m)'],['ang','Çatı eğimi (°)'],['ps','Aşık aralığı (m)'],['gs','Kuşak aralığı (m)'],['Ss','Ss (DD-2, 475 yıl)'],['S1','S1 (DD-2)'],['s0','Zemin kar yükü (kN/m²)'],['Rd','Taşıyıcı sistem R'],['ton','Vinç kapasitesi (t)'],['hc','Vinç kiriş kotu (m)'],['fa','Temel kenarı (m)'],['fd','Temel derinliği (m)'],['rt','Radye kalınlığı (m)']];
+const NUM=[['W','Genişlik (m)'],['L','Uzunluk (m)'],['H','Kolon yüksekliği (m)'],['bay','Aks aralığı (m)'],['ang','Çatı eğimi (°)'],['ps','Aşık aralığı (m)'],['gs','Kuşak aralığı (m)'],['Ss','Ss (DD-2, 475 yıl)'],['S1','S1 (DD-2)'],['s0','Zemin kar yükü (kN/m²)'],['Rd','Taşıyıcı sistem R'],['ton','Vinç kapasitesi (t)'],['hc','Vinç kiriş kotu (m)'],['qa','Zemin emniyet gerilmesi σem (kN/m²)'],['ks','Yatak katsayısı ks (kN/m³)'],['hmin','Min. temel derinliği (m)'],['rt','Radye kalınlığı (m)'],['rm','Radye taşma payı (m)']];
 $('nums').innerHTML=NUM.map(([k,l])=>`<span>${l}</span><input type="number" step="any" id="n_${k}">`).join('');
 const popt=v=>{const gs={};for(const n in LIB){if(LIB[n].k=='S')continue;(gs[n.slice(0,3)]=gs[n.slice(0,3)]||[]).push(`<option${n==v?' selected':''}>${n}</option>`)}return Object.entries(gs).map(([g,o])=>`<optgroup label="${g}">${o.join('')}</optgroup>`).join('')};
 function roles(){$('roles').innerHTML=Object.keys(RO).filter(r=>!/^rc/.test(r)&&(P.roof=='truss'?r!='kiris':!/^makas/.test(r))&&(P.crane||!/^(vinc|konsol)/.test(r))).map(r=>`<span style="color:${RO[r][1]}">■ ${RO[r][0]}</span><select data-r="${r}">${popt(P.prof[r])}</select>`).join('')}
@@ -125,12 +126,12 @@ const me=new THREE.Mesh(g,m.id==sel?HL:mat(m.r));me.quaternion.setFromRotationMa
 const lm=new THREE.LineBasicMaterial({color:0x0b6bcb}),{W,L,ys}=D;
 ys.forEach((y,i)=>{AX.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([T([-2,y,0]),T([W+2,y,0])]),lm));AX.add(lbl(i+1,T([-3,y,0])))});
 [0,W].forEach((x,i)=>{AX.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([T([x,-2,0]),T([x,L+2,0])]),lm));AX.add(lbl('AB'[i],T([x,-3,0])))});AX.visible=true;
-const fm=new THREE.MeshStandardMaterial({color:0x9aa0a8});let fc=0;if(P.ft=='radye'){const f=new THREE.Mesh(new THREE.BoxGeometry(W+1,P.rt,L+1),fm);f.position.set(W/2,-P.rt/2,-L/2);FN.add(f);M.forEach(m=>{if((m.r=='kolon'||m.r=='cephekolon')&&m.a[2]==0)fc++})}else M.filter(m=>m.r=='kolon'||m.r=='cephekolon').forEach(m=>{if(m.a[2]!=0)return;fc++;const f=new THREE.Mesh(new THREE.BoxGeometry(P.fa,P.fd,P.fa),fm);f.position.set(m.a[0],-P.fd/2,-m.a[1]);FN.add(f)});D.fc=fc;
-gh.position.y=-(P.ft=='radye'?P.rt:P.fd)-.01;report()}
+let fc=0;M.forEach(m=>{if((m.r=='kolon'||m.r=='cephekolon')&&m.a[2]==0)fc++});D.fc=fc;if(typeof drawFnd=='function')drawFnd();
+gh.position.y=-(typeof fndDepth=='function'?fndDepth():.6)-.01;report()}
 function report(){const g={},r={};let tw=0,tl=0;M.forEach(m=>{const n=pf(m),l=basis(m.a,m.b).len,w=l*LIB[n].kg;g[n]=g[n]||[0,0,LIB[n].kg];g[n][0]++;g[n][1]+=l;tw+=w;tl+=l});
 $('bom').innerHTML='<tr><th>Profil</th><th>Adet</th><th>Boy m</th><th>kg</th></tr>'+Object.entries(g).sort().map(([n,v])=>`<tr><td>${n}</td><td>${v[0]}</td><td>${v[1].toFixed(1)}</td><td>${(v[1]*v[2]).toFixed(0)}</td></tr>`).join('');
 D.tw=tw;const ar=P.W*P.L;$('kp').innerHTML=`<div><b>${(tw/1000).toFixed(2)} t</b><span>Toplam çelik</span></div><div><b>${M.length}</b><span>Eleman</span></div><div><b>${(tw/ar).toFixed(1)}</b><span>kg/m² (plan)</span></div><div><b>${ar.toFixed(0)} m²</b><span>Kapalı alan</span></div>`;
-const rd=P.ft=='radye',ra=(D.W+1)*(D.L+1),bt=rd?ra*P.rt:D.fc*P.fa*P.fa*P.fd,gb=rd?ra:D.fc*(P.fa+.2)**2;$('fnd').innerHTML=`${rd?'Radye: '+(D.W+1).toFixed(1)+'×'+(D.L+1).toFixed(1)+' m, kalınlık '+P.rt+' m':D.fc+' adet tekil temel ('+P.fa+'×'+P.fa+'×'+P.fd+' m)'}<br>Beton ≈ ${bt.toFixed(1)} m³ · Grobeton (10 cm) ≈ ${(gb*.1).toFixed(1)} m³ · Ankraj: ${D.fc*4} adet (kolon başına 4)<br><span style="color:var(--m)">Ön boyut bilgisidir; zemin etüdüne göre doğrulayın.</span>`;sels()}
+sels()}
 function sels(){const m=M.find(q=>q.id==sel);if(!m){$('sel').innerHTML='<span style="color:var(--m)">Modelde bir elemana tıklayın.</span>';return}
 const l=basis(m.a,m.b).len,n=pf(m),u=typeof TST!='undefined'&&TST[m.r]?(()=>{try{return TST[m.r](sec(n),n)}catch(e){return NaN}})():NaN;$('sel').innerHTML=`<b>${m.id}</b> · ${RO[m.r][0]}<br>Boy ${l.toFixed(3)} m · ${(l*LIB[n].kg).toFixed(1)} kg${isFinite(u)?` · Oran <b${u>1?' style="color:#e11"':''}>${u.toFixed(2)}${u>1?' ⚠':''}</b>`:''}<div class="r"><select id="sp">${popt(n)}</select></div><div class="r"><button onclick="grp()">Gruba uygula</button><button onclick="del()">Sil</button></div>
 <div class="r"><input type="number" id="cx" value="0" step="any"><input type="number" id="cy" value="${P.bay}" step="any"><input type="number" id="cz" value="0" step="any"></div><div class="r"><button onclick="cop()">Çoğalt (ofset x · y · z, m)</button></div>`;$('sp').onchange=e=>{if(m.p)m.p=e.target.value;else ovr[m.id]=e.target.value;rebuild()}}
@@ -146,7 +147,7 @@ function toast(s){const t=$('tt');t.textContent=s;t.style.display='block';clearT
 const ks={};addEventListener('keydown',e=>{if(/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;ks[e.code]=1;if(e.code=='Delete')del()});addEventListener('keyup',e=>ks[e.code]=0);
 const ck=new THREE.Clock();function loop(){requestAnimationFrame(loop);const dt=ck.getDelta(),f=new V();cam.getWorldDirection(f);f.y=0;if(f.lengthSq()>1e-6){f.normalize();const r=new V(-f.z,0,f.x),v=new V();if(ks.KeyW)v.add(f);if(ks.KeyS)v.sub(f);if(ks.KeyD)v.add(r);if(ks.KeyA)v.sub(r);if(ks.KeyQ)v.y+=1;if(ks.KeyE)v.y-=1;if(v.lengthSq()){v.multiplyScalar((ks.ShiftLeft?12:5)*dt);cam.position.add(v);ctl.target.add(v)}}ctl.update();ren.render(sc,cam)}
 new ResizeObserver(()=>{const m=$('M');ren.setSize(m.clientWidth,m.clientHeight,false);ren.setPixelRatio(Math.min(2,devicePixelRatio));cam.aspect=m.clientWidth/m.clientHeight;cam.updateProjectionMatrix()}).observe($('M'));
-$('nums').addEventListener('input',e=>{const k=e.target.id.slice(2),v=+e.target.value;if(!(v>0))return;if(k=='rz'){const h=v-P.H;if(h>0)P.ang=Math.atan(h/(P.W/2))/rad}else P[k]=v;if(k=='ton'){P.prof.vincKirisi=vp(v);Object.keys(ovr).forEach(q=>{if(q.startsWith('vincKirisi'))delete ovr[q]});roles()}sync();autoRun()});
+$('nums').addEventListener('input',e=>{const k=e.target.id.slice(2),v=+e.target.value;if(!(v>0))return;if(k=='rt'||k=='rm'){P[k]=v;rebuild();return}if(k=='qa'||k=='ks'||k=='hmin'){P[k]=v;fndSize();sync();rebuild();return}if(k=='rz'){const h=v-P.H;if(h>0)P.ang=Math.atan(h/(P.W/2))/rad}else P[k]=v;if(k=='ton'){P.prof.vincKirisi=vp(v);Object.keys(ovr).forEach(q=>{if(q.startsWith('vincKirisi'))delete ovr[q]});roles()}sync();autoRun()});
 $('roof').onchange=e=>{P.roof=e.target.value;roles();autoRun()};$('brace').onchange=e=>{P.brace=e.target.checked?1:0;rebuild()};$('crane').onchange=e=>{P.crane=e.target.checked?1:0;roles();autoRun()};$('ft').onchange=e=>{P.ft=e.target.value;rebuild()};$('loc').onchange=e=>{const l=LOC[e.target.value];P.loc=e.target.value;if(l){Object.assign(P,l);$('zs').value=l.zs;sync();sizeRun()}};$('zs').onchange=e=>{P.zs=e.target.value;autoRun()};
 $('roles').addEventListener('change',e=>{const r=e.target.dataset.r;P.prof[r]=e.target.value;M.forEach(q=>{if(q.r==r){delete ovr[q.id];delete q.p}});rebuild();if(typeof szTable=='function')szTable()});
 function lenOf(m){return basis(m.a,m.b).len}
@@ -246,10 +247,7 @@ $('sz').innerHTML=rows?`<table><tr><th>Grup</th><th>Seçilen</th><th>Oran</th><t
 $('loc').onchange=e=>{const v=e.target.value,S=SITE[v];P.loc=v;P.site=v;if(S){P.Ss=S.ss[P.dd-1];P.S1=S.s1[P.dd-1];P.s0=S.sk;sync()}v?sizeRun():($('seis').innerHTML='',rebuild())};
 $('dd').onchange=e=>{P.dd=+e.target.value;const S=SITE[P.site];if(S){P.Ss=S.ss[P.dd-1];P.S1=S.s1[P.dd-1];sync()}autoRun()};
 $('grade').onchange=e=>{P.grade=e.target.value;autoRun()};$('cls').onchange=e=>{P.cls=e.target.value;autoRun()};
-function fndx(){const gk=.3+(D.tw||0)*9.81/1000/(P.W*P.L),Nlt=(gk+1)*P.bay*P.W/2+(P.crane?1.35*P.ton*9.81:0),b=`<br><b>Temel:</b> C30 betonarme, C14 grobeton, grout ≥ 25 mm (non-shrink), ankraj ≥ S275JR (ACI 318-19 Böl.17)`;
-if(P.ft!='kazik'){$('fnd').innerHTML+=b;return}
-const T=[[273.05,6.35,63],[323.85,7.92,83],[406.4,9.52,119],[508,11.6,175],[609.6,12.3,241]],p=T.find(x=>Math.ceil(Nlt/9.81/x[2])<=4)||T[4],n=Math.ceil(Nlt/9.81/p[2]),d=p[0]/1e3;
-$('fnd').innerHTML=`${D.fc} kolon · kolon başına ${n} adet ⌀${p[0]}×${p[1]} mm çelik boru kazık (uzun dönem ${p[2]} t, kısa dönem ${(p[2]*1.5).toFixed(0)} t) → toplam ${D.fc*n} adet<br>Uzun dönem kolon yükü ≈ ${(Nlt/9.81).toFixed(0)} t · min. aralık ${Math.max(1,2.5*d).toFixed(2)} m · kenar ${Math.max(.45,1.25*d).toFixed(2)} m · gömülme ${Math.max(.075,d/4).toFixed(3)} m${b}<br><span style="color:var(--m)">Kazık boyu ve tipi zemin raporuna göre belirlenir; rüzgâr/deprem çekmesi ayrıca kontrol edilmelidir.</span>`}
+function fndx(){}
 const _rp=report;report=function(){_rp();fndx()};
 roles();sync();rebuild();
 </script><script>
@@ -266,7 +264,7 @@ $('loc').value='erd';$('loc').onchange({target:$('loc')});
 </script>
 <script>
 //CORE-START
-const BC={25:'C25/30',30:'C30/37',35:'C35/45',40:'C40/50'},TM={steel:{fa:1.2,fd:.6,rt:.5},rc:{fa:2.2,fd:.8,rt:.6}};
+const BC={25:'C25/30',30:'C30/37',35:'C35/45',40:'C40/50'},TM={steel:{rt:.5,hmin:.6},rc:{rt:.6,hmin:.8}};
 Object.assign(P,{type:'steel',nk:5,hk:3,nbx:3,nby:4,ax:5,ay:5,kx:400,ky:500,bw:300,bh:500,ts:150,pv:1,pl:3,pt:300,fck:30,gq:2.5,qs:3.5,rho:1.5,rbB:130,rbS:90,rbW:110,rbF:90,gt:10,gm:10,plen:12,wk:50,ed:0});
 Object.assign(RO,{kolonBasinc:['Kolon basınç çubuğu','#a855f7','CHS 88.9x6.3'],catiBasinc:['Çatı basınç çubuğu','#14b8a6','CHS 88.9x6.3'],rcKolon:['BA Kolon','#7c8aa0','IPE 160'],rcKiris:['BA Kiriş','#b08968','IPE 160'],rcDoseme:['BA Döşeme','#cbd5e1','IPE 160'],rcPerde:['BA Perde','#94a3b8','IPE 160']});
 P.prof.kolonBasinc=P.prof.catiBasinc='CHS 88.9x6.3';
@@ -293,16 +291,9 @@ if(N[m.r]){const h=p.h/1e3,b=p.b/1e3,x=A[m.r]=A[m.r]||{n:0,v:0,f:0};x.n++;x.v+=h
 const s=S[n]=S[n]||{n,c:0,l:0,kg:p.kg,w:0};s.c++;s.l+=l;s.w+=l*p.kg;if((m.r=='kolon'||m.r=='cephekolon')&&m.a[2]==0){R.fc++;AN[n]=(AN[n]||0)+1}});
 const rb={rcKolon:7850*P.rho/100+40,rcKiris:P.rbB,rcDoseme:P.rbS,rcPerde:P.rbW};
 for(const r in N){const x=A[r];if(!x)continue;R.beton.push({a:N[r],n:x.n,q:x.v});R.kalip.push({a:N[r],q:x.f});R.donati.push({a:N[r],q:x.v*rb[r],r:rb[r].toFixed(0)+' kg/m³'})}
-const gt=P.gt/100,gm=P.gm/100,fa=P.fa,fd=P.fd,rt=P.rt,fc=R.fc,rd=P.ft=='radye';let fv,ff,gv,gs;
-if(rd){const a=d.W+1,b=d.L+1;fv=a*b*rt;ff=2*(a+b)*rt;gv=(a+2*gm)*(b+2*gm)*gt;gs=`${(a+2*gm).toFixed(2)}×${(b+2*gm).toFixed(2)} m, t=${P.gt} cm`}
-else{fv=fc*fa*fa*fd;ff=fc*4*fa*fd;gv=fc*(fa+2*gm)**2*gt;gs=`${fc} adet ${(fa+2*gm).toFixed(2)}×${(fa+2*gm).toFixed(2)} m, t=${P.gt} cm`}
-const wk=P.wk/100,ed=P.ed/100;let kz,ks;
-if(rd){const A=d.W+1+2*gm+2*wk,B=d.L+1+2*gm+2*wk,h=rt+gt+ed;kz=A*B*h;ks=`${A.toFixed(2)}×${B.toFixed(2)} m, derinlik ${h.toFixed(2)} m`}
-else{const A=fa+2*gm+2*wk,h=fd+gt+ed;kz=fc*A*A*h;ks=`${fc} adet ${A.toFixed(2)}×${A.toFixed(2)} m, derinlik ${h.toFixed(2)} m`}
-const dg=kz-fv-gv;R.kazi=[{a:rd?'Radye kazısı':'Tekil temel kazısı',s:ks,q:kz}];R.dolgu=[{a:'Temel çevresi geri dolgu',s:'Kazı − (temel betonu + grobeton)',q:dg}];R.fazla=[{a:'Fazla hafriyat (nakliye)',s:'Kazı − geri dolgu',q:kz-dg}];
-R.beton.push({a:rd?'Temel (radye)':'Temel (tekil)',n:rd?1:fc,q:fv});R.kalip.push({a:rd?'Temel (radye)':'Temel (tekil)',q:ff});R.donati.push({a:'Temel',q:fv*P.rbF,r:P.rbF+' kg/m³'});R.grobeton.push({a:rd?'Radye altı grobeton':'Tekil temel altı grobeton',q:gv,s:gs});
-R.steel=Object.values(S).sort((a,b)=>a.n<b.n?-1:1);if(!rc){R.anc=Object.entries(AN).map(([n,c])=>{const a=ancOf(LIB[n],P.crane&&n==P.prof.kolon);return{n,c,...a,q:c*a.nb,w:c*a.nb*a.kg}});R.tanc=R.anc.reduce((t,a)=>t+a.w,0);if(P.ft=='kazik')R.pile={c:4*fc,l:P.plen,kg:4*fc*P.plen*97.8}}
-const sm=a=>a.reduce((t,x)=>t+x.q,0);R.tb=sm(R.beton);R.tk=sm(R.kalip);R.td=sm(R.donati);R.tg=sm(R.grobeton);R.tkz=sm(R.kazi);R.tdl=sm(R.dolgu);R.tfz=sm(R.fazla);R.tw=R.steel.reduce((t,x)=>t+x.w,0)+(R.pile?R.pile.kg:0);return R}
+const F=fndQty();R.beton.push(...F.beton);R.kalip.push(...F.kalip);R.donati.push(...F.donati);R.grobeton.push(...F.gro);R.kazi=F.kazi;R.dolgu=F.dolgu;R.fazla=F.fazla;
+R.steel=Object.values(S).sort((a,b)=>a.n<b.n?-1:1);if(!rc){R.anc=Object.entries(AN).map(([n,c])=>{const a=ancOf(LIB[n],P.crane&&n==P.prof.kolon);return{n,c,...a,q:c*a.nb,w:c*a.nb*a.kg}});R.tanc=R.anc.reduce((t,a)=>t+a.w,0)}
+const sm=a=>a.reduce((t,x)=>t+x.q,0);R.tb=sm(R.beton);R.tk=sm(R.kalip);R.td=sm(R.donati);R.tg=sm(R.grobeton);R.tkz=sm(R.kazi);R.tdl=sm(R.dolgu);R.tfz=sm(R.fazla);R.tw=R.steel.reduce((t,x)=>t+x.w,0);return R}
 function ancOf(p,crane){const D=[24,30,36];let i=0,nb=4;if(p.h>300)i=1;if(p.h>450)nb=6;if(p.h>600){nb=8;i=2}if(crane&&p.h>300)i=Math.min(2,i+1);const d=D[i],hef=Math.max(400,Math.ceil(15*d/50)*50),L=hef+150;return{nb,d,hef,L,kg:L/1e3*d*d*.006165*1.1}}
 function ixOf(n){const p=LIB[n];if(p.k=='C'){const D=p.h,t=p.tw;return Math.sqrt((Math.PI/64*(D**4-(D-2*t)**4))/(Math.PI*t*(D-t)))}return typeof sec=='function'?Math.min(sec(n).ix,sec(n).iy):p.b/4}
 function ndRC(){const nk=Math.round(P.nk),al=[1,1,1,.95,.88,.8,.71,.65,.6,.6,.6,.6][Math.min(nk,12)-1],A=P.ax*P.ay,G=25*P.ts/1e3+P.gq+25*(P.bw/1e3)*((P.bh-P.ts)/1e3)*(1/P.ax+1/P.ay);return nk*(1.4*(G*A+25*P.kx*P.ky/1e6*P.hk)+1.6*P.qs*A*al)}
@@ -324,17 +315,16 @@ if(P.fck<25)E('Beton sınıfı en az C25 olmalı (TBDY 7.2.5.1).');
 if(P.pv){const t=Math.max(250,P.hk*1e3/16);if(P.pt<t)E(`Perde kalınlığı ${P.pt} mm; en az max(250 mm, kat yüksekliği/16 = ${t.toFixed(0)} mm) olmalı (TBDY 7.6.1.2a).`);
 if(P.pl*1e3/P.pt<6)W('Perde boyu/kalınlığı < 6: TBDY 7.6.1.2 tanımına göre perde değil kolon sayılır.');
 if(P.pl>P.ax-kx/1e3||P.pl>P.ay-ky/1e3)W('Perde boyu aks aralığına sığmıyor; modelde kolon yüzleri arasına kırpıldı.')}
-if(P.fa*1e3<Math.max(kx,ky)+200)E('Temel kenarı kolon boyutuna göre çok küçük.')}
+}
 else{if(P.ang>45)W('Çatı eğimi 45°’yi aşıyor: kar+rüzgâr birleşimi için TS 498 Madde 12.2 ek koşulları gerekir.');
 const used=new Set(M.filter(m=>!/^rc/.test(m.r)).map(pf));used.forEach(n=>{const p=LIB[n];if(!p)return;const t=(p.k=='R'||p.k=='C')?p.tw:Math.min(p.tw,p.tf);if(t<(p.k=='R'||p.k=='C'?2.5:4))E(`${n}: et kalınlığı ${t} mm; boru/kutu için ≥2,5 mm, diğer profiller için ≥4 mm olmalı (Çelik Yapılar Yönetmeliği Md. 2).`)});
 ['kolonBasinc','catiBasinc'].forEach(r=>{const n=P.prof[r],l=P.bay*1e3/ixOf(n);if(l>200)W(`${RO[r][0]} (${n}): narinlik λ=${l.toFixed(0)} > 200; kesiti büyütün veya aks aralığını azaltın.`)});
-if(typeof Q!='undefined'&&Q&&Q.anc)Q.anc.forEach(a=>{if(a.hef>P.fd*1e3-50)E(`Ankraj gömme boyu ${a.hef} mm (${a.n}); temel derinliği ${Math.round(P.fd*1e3)} mm. Temel derinliği en az ${((a.hef+50)/1e3).toFixed(2)} m olmalı.`)});
-const p=LIB[P.prof.kolon];if(p&&P.fa*1e3<Math.max(p.h,p.b)+200)E('Temel kenarı kolon boyutuna göre çok küçük.');
+
 if(P.crane&&P.hc>P.H-.5)W('Vinç kiriş kotu kolon yüksekliğine çok yakın; model kotu düşürüldü.');
 if(P.roof=='truss'){const wc=LIB[P.prof.makasCapraz],wd=LIB[P.prof.makasDikme];[['makasUst','Üst başlık'],['makasAlt','Alt başlık']].forEach(([r,nm])=>{const pc=LIB[P.prof[r]];[[wc,'çapraz'],[wd,'dikme']].forEach(([q,qn])=>{if(pc&&q&&(pc.b<q.b||pc.h<q.h||pc.tw<q.tw))W(`${nm} (${pc.n}), ${qn} profilinden (${q.n}) küçük: başlık b, h ve et kalınlığı kafes elemanlarından küçük olmamalı.`)})})}
 Object.keys(TDEF).forEach(r=>{const n=P.prof[r];if(!n||!LIB[n]||!RO[r])return;try{const[d,dl]=TDEF[r](sec(n));if(d>dl)W(`${r=='makasUst'?'Makas (genel sehim)':RO[r][0]} (${n}): sehim ${d.toFixed(1)} mm > izin ${dl.toFixed(1)} mm.`)}catch(e){}});
 Object.keys(TLAM).forEach(r=>{const n=P.prof[r];if(!n||!LIB[n]||!RO[r])return;if(P.roof=='truss'?r=='kiris':/^makas/.test(r))return;try{const[l,lim]=TLAM[r](sec(n));if(l>lim)W(`${RO[r][0]} (${n}): narinlik λ=${l.toFixed(0)} > ${lim}; kesiti büyütün.`)}catch(e){}})}
-if(!o.length)o.push({t:'o',m:'Girişler ilgili yönetmelik koşullarını sağlıyor.'});return o}
+if(typeof FD!='undefined'&&FD)FD.warn.forEach(w=>o.push(w));if(!o.some(x=>x.t=='e'||x.t=='w'))o.splice(0,o.length,{t:'o',m:'Girişler ilgili yönetmelik koşullarını sağlıyor.'});return o}
 const esc=s=>String(s).replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
 function crc32(b){let t=crc32.t;if(!t){t=crc32.t=[];for(let n=0,c;n<256;n++){c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}}let r=-1;for(let i=0;i<b.length;i++)r=t[(r^b[i])&255]^(r>>>8);return(r^-1)>>>0}
 function zip(files){const enc=new TextEncoder(),out=[],cd=[],u16=v=>[v&255,v>>8&255],u32=v=>[v&255,v>>8&255,v>>16&255,v>>>24&255];let off=0;
@@ -346,7 +336,6 @@ function sheet(rows,cols,merges,hdr){const cl='ABCDEFGH',cx=(r,c,v,s)=>typeof v=
 return`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetPr><pageSetUpPr fitToPage="1"/></sheetPr><sheetViews><sheetView workbookViewId="0" showGridLines="0">${hdr?`<pane ySplit="${hdr}" topLeftCell="A${hdr+1}" activePane="bottomLeft" state="frozen"/>`:''}</sheetView></sheetViews><sheetFormatPr defaultRowHeight="18"/><cols>${cols.map((w,i)=>`<col min="${i+1}" max="${i+1}" width="${w}" customWidth="1"/>`).join('')}</cols><sheetData>${rows.map((r,i)=>`<row r="${i+1}">${r.map((v,c)=>cx(i+1,c,v[0],v[1])).join('')}</row>`).join('')}</sheetData>${merges.length?`<mergeCells count="${merges.length}">${merges.map(m=>`<mergeCell ref="${m}"/>`).join('')}</mergeCells>`:''}<pageMargins left="0.5" right="0.5" top="0.6" bottom="0.6" header="0.3" footer="0.3"/><pageSetup paperSize="9" orientation="landscape" fitToWidth="1" fitToHeight="0"/></worksheet>`}
 function bomRows(q){const o=[],cb=BC[P.fck]||'C30/37',f1=x=>+x.toFixed(2);
 if(P.type!='rc'){q.steel.forEach(s=>o.push({c:'1. Yapısal Çelik',n:s.n,s:`${P.grade} · ${s.kg} kg/m · ${s.c} adet · toplam boy ${s.l.toFixed(1)} m`,q:f1(s.w),u:'kg'}));
-if(q.pile)o.push({c:'1. Yapısal Çelik',n:'Çelik boru kazık Ø406,4×10',s:`${P.grade} · ${q.pile.c} adet · boy ${q.pile.l} m`,q:f1(q.pile.kg),u:'kg'});
 q.anc.forEach(a=>o.push({c:'2. Bağlantı ve Ankraj',n:`Ankraj bulonu imali ve yerine konması – ${a.n} kolon`,s:`M${a.d} · L=${a.L} mm (gömme ${a.hef} mm) · S275JR · kolon başına ${a.nb} adet · toplam ${a.q} adet · ${a.w.toFixed(0)} kg`,q:+(a.w/1e3).toFixed(3),u:'ton'}))}
 q.beton.forEach(r=>o.push({c:'3. Beton',n:`Hazır beton ${cb} – ${r.a}`,s:`${r.n} adet eleman`,q:f1(r.q),u:'m³'}));
 q.kalip.forEach(r=>o.push({c:'4. Kalıp',n:`Kalıp yüzey alanı – ${r.a}`,s:'Temas yüzeyi',q:f1(r.q),u:'m²'}));
@@ -356,7 +345,7 @@ q.kazi.forEach(r=>o.push({c:'7. Kazı ve Dolgu',n:r.a,s:r.s,q:f1(r.q),u:'m³'}))
 function buildXlsx(q){const rc=P.type=='rc',rows=[[['Keşif Listesi – '+(rc?'Betonarme Yapı':'Çelik Yapı'),1],['',1],['',1],['',1],['',1],['',1]],[['Yapı Ön Boyutlandırma · '+new Date().toISOString().slice(0,10),8],['',8],['',8],['',8],['',8],['',8]],[['',0]],[['Sıra',2],['Kategori',2],['Malzeme Adı',2],['Teknik Özellik',2],['Miktar',2],['Birim',2]]],mg=['A1:F1','A2:F2'],items=bomRows(q);let cat='',i=0,sub=0,ct=0;
 const flush=()=>{if(cat)rows.push([['',6],['',6],['Ara toplam – '+cat.slice(3),6],['',6],[+sub.toFixed(2),7],[ct,6]])};
 items.forEach(r=>{if(r.c!=cat){flush();cat=r.c;sub=0;ct=0;rows.push([[r.c,3],['',3],['',3],['',3],['',3],['',3]]);mg.push('A'+rows.length+':F'+rows.length)}i++;sub+=r.q;rows[rows.length]=[[i,4],[r.c.slice(3),4],[r.n,4],[r.s,4],[r.q,5],[r.u,4]];ct=r.u});flush();
-const info=[[['Parametre',2],['Değer',2]],...(rc?[['Yapı türü','Betonarme'],['Kat sayısı',P.nk],['Kat yüksekliği (m)',P.hk],['Açıklık adedi (X × Y)',P.nbx+' × '+P.nby],['Aks aralığı (X × Y, m)',P.ax+' × '+P.ay],['Kolon (mm)',P.kx+'×'+P.ky],['Kiriş (mm)',P.bw+'×'+P.bh],['Döşeme kalınlığı (mm)',P.ts],['Perde',P.pv?P.pl+' m × '+P.pt+' mm':'Yok'],['Beton sınıfı',BC[P.fck]]]:[['Yapı türü','Çelik'],['Genişlik × Uzunluk (m)',P.W+' × '+P.L],['Kolon yüksekliği (m)',P.H],['Aks aralığı (m)',P.bay],['Çatı eğimi (°)',P.ang],['Çelik kalitesi',P.grade],['Çatı sistemi',P.roof=='truss'?'Makaslı':'Tek kirişli'],['Beton sınıfı',BC[P.fck]]]),['Temel',P.ft=='radye'?'Radye':P.ft=='kazik'?'Kazıklı':'Tekil'],['Grobeton kalınlığı / taşma (cm)',P.gt+' / '+P.gm],['Kazı çalışma payı / temel üstü toprak (cm)',P.wk+' / '+P.ed]].map((r,k)=>k?[[r[0],4],[typeof r[1]=='number'?r[1]:String(r[1]),4]]:r);
+const info=[[['Parametre',2],['Değer',2]],...(rc?[['Yapı türü','Betonarme'],['Kat sayısı',P.nk],['Kat yüksekliği (m)',P.hk],['Açıklık adedi (X × Y)',P.nbx+' × '+P.nby],['Aks aralığı (X × Y, m)',P.ax+' × '+P.ay],['Kolon (mm)',P.kx+'×'+P.ky],['Kiriş (mm)',P.bw+'×'+P.bh],['Döşeme kalınlığı (mm)',P.ts],['Perde',P.pv?P.pl+' m × '+P.pt+' mm':'Yok'],['Beton sınıfı',BC[P.fck]]]:[['Yapı türü','Çelik'],['Genişlik × Uzunluk (m)',P.W+' × '+P.L],['Kolon yüksekliği (m)',P.H],['Aks aralığı (m)',P.bay],['Çatı eğimi (°)',P.ang],['Çelik kalitesi',P.grade],['Çatı sistemi',P.roof=='truss'?'Makaslı':'Tek kirişli'],['Beton sınıfı',BC[P.fck]]]),['Temel',P.ft=='radye'?'Radye':'Tekil'],['Grobeton kalınlığı / taşma (cm)',P.gt+' / '+P.gm],['Kazı çalışma payı / temel üstü toprak (cm)',P.wk+' / '+P.ed]].map((r,k)=>k?[[r[0],4],[typeof r[1]=='number'?r[1]:String(r[1]),4]]:r);
 chk().forEach(c=>info.push([[c.t=='o'?'Kontrol':c.t=='e'?'Uygunsuz':'Uyarı',4],[c.m,4]]));
 const ss='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',NS='xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"',now=new Date().toISOString().slice(0,19)+'Z';
 const st=`${ss}<styleSheet ${NS}><fonts count="4"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Calibri"/></font><font><b/><sz val="14"/><name val="Calibri"/></font></fonts><fills count="5"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF1F3864"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFD9E2F3"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFF2F2F2"/></patternFill></fill></fills><borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style="thin"><color rgb="FFBFBFBF"/></left><right style="thin"><color rgb="FFBFBFBF"/></right><top style="thin"><color rgb="FFBFBFBF"/></top><bottom style="thin"><color rgb="FFBFBFBF"/></bottom><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="9"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="3" fillId="0" borderId="0" xfId="0" applyFont="1"/><xf numFmtId="0" fontId="2" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf><xf numFmtId="0" fontId="1" fillId="3" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"/><xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1" applyAlignment="1"><alignment vertical="top" wrapText="1"/></xf><xf numFmtId="4" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyBorder="1"/><xf numFmtId="0" fontId="1" fillId="4" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"/><xf numFmtId="4" fontId="1" fillId="4" borderId="1" xfId="0" applyNumberFormat="1" applyFont="1" applyFill="1" applyBorder="1"/><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`;
@@ -369,36 +358,156 @@ t('xl/_rels/workbook.xml.rels',`${ss}<Relationships xmlns="http://schemas.openxm
 t('xl/styles.xml',st),t('xl/worksheets/sheet1.xml',sheet(rows,[7,20,44,52,14,9],mg,4)),t('xl/worksheets/sheet2.xml',sheet(info,[34,100],[],1))])}
 //CORE-END
 
+//FND-START
+/* ===== TEMEL HESABI · tekil + radye (ön boyut; TS 500, TBDY-2018, zemin: emniyet gerilmesi yöntemi) ===== */
+const FN_={fyd:420/1.15,gc:25,gs:18,mu:.4,cov:.08};
+const fcdF=()=>P.fck/1.5,fctdF=()=>.35*Math.sqrt(P.fck)/1.5,EcF=()=>3250*Math.sqrt(P.fck)+14000,kgm=d=>.006165*d*d;
+let FD=null;
+/* As (mm²/m) için Ø14–Ø25, aralık 100–200 mm, en küçük çap */
+function pickBar(As){for(const d of[14,16,18,20,22,25]){const Ab=Math.PI*d*d/4,s=Math.min(200,Math.floor(Ab*1000/Math.max(As,1)/25)*25);if(s>=100)return{d,s,As:Ab*1000/s,ok:1}}return{d:25,s:100,As:Math.PI*625/4*10,ok:0}}
+/* Dikdörtgen gerilme bloğu (TS 500, k1=0.85): M kNm/m, d m → As mm²/m */
+function flexAs(M,d){const k=M/1000/(.85*fcdF()*d*d),q=1-2*k;if(!(q>0))return Infinity;const u=1-Math.sqrt(q);if(u>.35)return Infinity;return .85*fcdF()*(u*d)/FN_.fyd*1e6}
+/* Kare temel taban gerilmesi (kN/m²): kern içinde trapez, dışında üçgen, e>a/3 → ∞ */
+function prs(N,M,a){const e=M/N;return e<=a/6?N/(a*a)*(1+6*e/a):e<a/3?2*N/(3*a*(a/2-e)):Infinity}
+function fndCols(){const o=[],W=D.W,L=D.L,eq=(a,b)=>Math.abs(a-b)<1e-6;
+M.forEach(m=>{if(m.a[2]!=0)return;
+if(P.type=='rc'){if(m.r!='rcKolon')return;const ex=eq(m.a[0],0)||eq(m.a[0],W),ey=eq(m.a[1],0)||eq(m.a[1],L);o.push({x:m.a[0],y:m.a[1],cls:ex&&ey?'kose':ex||ey?'kenar':'ic'})}
+else if(m.r=='kolon'||m.r=='cephekolon')o.push({x:m.a[0],y:m.a[1],cls:m.r=='kolon'?'kolon':'ceph'})});return o}
+/* Çelik yapı: kolon taban reaksiyonları (size() ile aynı yük kabulleri) */
+function loadsSteel(){const S=SITE[P.site]||SITE.erd,{W,H,L,rz}=D,bay=P.bay,t=Math.tan(P.ang*rad),pl=W*L;
+const ln=Math.log(Math.max(rz,5)/.05),vm=.19*ln*S.vb,qp=(1+7/ln)*.625*vm*vm/1000;
+const Lv=Math.max(1,.8*P.s0*(P.ang<=30?1:Math.max(0,(60-P.ang)/30))),gk=.3+(D.tw||0)*9.81/1000/pl;
+const SDS=P.Ss*FSf(P.zs,P.Ss),SD1=P.S1*F1f(P.zs,P.S1),TB=SD1/SDS,TA=.2*TB,T1=.07*rz**.75,Sae=T1<TA?(.4+.6*T1/TA)*SDS:T1<=TB?SDS:SD1/T1;
+const Gc=P.crane?.8*P.ton:0,Ws=(gk+.3*S.mv)*pl+Gc*9.81,V=Math.max(Ws*Sae*1.2/P.Rd,.04*Ws*1.2*SDS),FE=V/(2*(D.n+1));
+const Q=P.ton*9.81,Rr=P.crane?1.35*Q:0,Th=P.crane?Math.max(.2*1.1*Q,.1*(Q+Gc*9.81),.4*Q):0,Rc=1.25*Rr;
+const trib=bay*W/2,wl=.15,Gw=wl*H*bay,Ff=1.3*qp*bay*H;
+const pk=LIB[P.prof.kolon],pc=LIB[P.prof.cephekolon],mg=Math.max(2,Math.ceil(W/5)),sw=W/mg,Hm=H+W/4*t,ww=.8*qp*sw,hef=(p,cr)=>(ancOf(p,cr).hef+50)/1000,Gc2=wl*Hm*sw+pc.kg*Hm*9.81/1e3;
+return{
+kolon:{name:'Kolon temeli',pos:'edge',Ns:(gk+Lv)*trib+Gw+Rc,Nd:1.4*(gk*trib+Gw)+1.6*(Lv*trib+Rc),Mc:Rc*.225,Hs:Math.max(FE,Ff)+Th/2,Nup:Math.max(0,(1.2*qp-.9*gk)*trib-.9*Gw),cx:(pk.b+150)/1e3,cy:(pk.h+150)/1e3,hmin:hef(pk,!!P.crane)},
+ceph:{name:'Rüzgâr kolonu temeli',pos:'edge',Ns:Gc2,Nd:1.4*Gc2,Mc:0,Hs:ww*Hm/2,Nup:0,cx:(pc.b+150)/1e3,cy:(pc.h+150)/1e3,hmin:hef(pc,false)}}}
+/* Betonarme yapı: kolon taban yükleri (ndRC ile aynı kabuller; tributary alan oranı: iç 1, kenar 1/2, köşe 1/4) */
+function loadsRC(){const nk=Math.round(P.nk),al=[1,1,1,.95,.88,.8,.71,.65,.6,.6,.6,.6][Math.min(nk,12)-1],A=P.ax*P.ay,
+G=25*P.ts/1e3+P.gq+25*(P.bw/1e3)*((P.bh-P.ts)/1e3)*(1/P.ax+1/P.ay),cs=25*P.kx*P.ky/1e6*P.hk,gw=P.gw||0;
+const mk=(tf,wl)=>({Ns:nk*(G*A*tf+cs+P.qs*A*tf*al+gw*wl),Nd:nk*(1.4*(G*A*tf+cs+gw*wl)+1.6*P.qs*A*tf*al),Hs:0,Mc:0,Nup:0,cx:P.kx/1e3,cy:P.ky/1e3,hmin:0}),wl=(P.ax+P.ay)/2;
+return{ic:{...mk(1,0),name:'İç kolon temeli',pos:'in'},kenar:{...mk(.5,wl),name:'Kenar kolon temeli',pos:'edge'},kose:{...mk(.25,wl),name:'Köşe kolon temeli',pos:'corner'}}}
+function fndLoads(){const L=P.type=='rc'?loadsRC():loadsSteel(),n={};fndCols().forEach(c=>n[c.cls]=(n[c.cls]||0)+1);for(const k in L){L[k].n=n[k]||0;if(!L[k].n)delete L[k]}return L}
+/* ---- Tekil temel (kare a×a, yükseklik h) ---- */
+function ftEval(c,a,h){const A=a*a,Wf=FN_.gc*A*h+FN_.gs*A*(P.ed||0)/100,d=h-FN_.cov,fct=fctdF()*1000,N1=c.Ns+Wf,M2=c.Mc+c.Hs*h;
+const s1=prs(N1,c.Mc,a),s2=prs(N1,M2,a),rs=Math.max(s1/P.qa,s2/(1.5*P.qa)),ru=c.Nup>0?c.Nup/(.9*Wf):0,rsl=c.Hs>0?c.Hs/(FN_.mu*N1):0;
+const qm=prs(c.Nd,1.4*M2,a),qv=c.Nd/A,cx=c.cx,cy=c.cy,up=2*(cx+cy+2*d),Vp=1.15*Math.max(0,c.Nd-qv*(cx+d)*(cy+d)),Vpr=fct*up*d;
+const lc=(a-Math.min(cx,cy))/2,V1=qm*a*Math.max(0,lc-d),V1r=.65*fct*a*d,Mu=qm*lc*lc/2,Areq=flexAs(Mu,d),As=Math.max(Areq,2000*h),bar=pickBar(As);
+return{a,h,d,Wf,s1,s2,rs,ru,rsl,rp:Vp/Vpr,rv:V1/V1r,Mu,Areq,As,bar,qm,e:M2/N1}}
+const ftOK=r=>r.rs<=1&&r.ru<=1&&r.rsl<=1&&r.rp<=1&&r.rv<=1&&r.bar.ok&&isFinite(r.As);
+function ftAt(c,a){for(let h=Math.max(P.hmin||.6,.4,c.hmin||0);h<=3;h=+(h+.05).toFixed(2)){const r=ftEval(c,a,h);if(ftOK(r))return{a,h,r}}return null}
+function ftSize(c){const a0=Math.ceil(Math.max(.8,Math.max(c.cx,c.cy)+.5,Math.sqrt(c.Ns/P.qa)*.9)/.05-1e-9)*.05;let best=null;
+for(let a=+a0.toFixed(2),n=0;a<=20&&n<400;a=+(a+.05).toFixed(2),n++){const s=ftAt(c,a);if(!s){if(best&&a>best.a+.6)break;continue}const v=a*a*s.h;if(!best||v<best.v*.995)best={...s,v};else if(a>best.a+.6)break}
+return best||{a:a0,h:1,r:ftEval(c,a0,1),fail:1}}
+/* ---- Radye ---- */
+function barKg(d,L,n){const lap=Math.max(0,Math.ceil(L/12)-1)*.05*d;return n*(L+lap)*kgm(d)}
+function meshKg(bar,B,Ln){const nB=Math.floor((Ln-.1)*1000/bar.s)+1,nL=Math.floor((B-.1)*1000/bar.s)+1;return barKg(bar.d,B-.1,nB)+barKg(bar.d,Ln-.1,nL)}
+function rdEval(t,rm,Ls){const rc=P.type=='rc',B=D.W+2*rm,Ln=D.L+2*rm,A=B*Ln,d=t-FN_.cov,fct=fctdF()*1000;let SNs=0,SNd=0;
+for(const k in Ls){SNs+=Ls[k].n*Ls[k].Ns;SNd+=Ls[k].n*Ls[k].Nd}
+const Wf=FN_.gc*A*t+FN_.gs*A*(P.ed||0)/100,qs=(SNs+Wf)/A,qu=SNd/A;let rp=0,pk=null;
+for(const k in Ls){const c=Ls[k],cx=c.cx,cy=c.cy,cmin=Math.min(cx,cy),cmax=Math.max(cx,cy);
+const up=c.pos=='in'?2*(cx+cy+2*d):c.pos=='edge'?2*cmin+cmax+2*d:cx+cy+d,be=c.pos=='in'?1.15:c.pos=='edge'?1.25:1.35;
+const Vp=be*Math.max(0,c.Nd-qu*(cx+d)*(cy+d)),r=Vp/(fct*up*d);if(r>rp){rp=r;pk=k}}
+let Mb,Mt,rs2=0,info={};
+if(rc){const ln=Math.max(P.ax-P.kx/1e3,P.ay-P.ky/1e3);Mb=.1219*qu*ln*ln;Mt=.0525*qu*ln*ln;
+const lam=Math.pow(P.ks/(4*EcF()*1000*t**3/12),.25);info={lim:1.75/lam,sp:Math.max(P.ax,P.ay),ln,meth:'dd'}}
+else{let mm=0,pp=null;for(const k in Ls){const c=Ls[k],ell=Math.pow(EcF()*1000*t**3/(12*.96*P.ks),.25),ae=Math.sqrt(c.cx*c.cy/Math.PI),b=ae<1.724*t?Math.sqrt(1.6*ae*ae+t*t)-.675*t:ae,
+M1=.0953*c.Nd*(4*Math.log10(Math.max(ell/b,1.05))+.359),q1=.431*c.Ns/(ell*ell)+FN_.gc*t;if(M1>mm){mm=M1;pp=k}rs2=Math.max(rs2,q1/P.qa);info.ell=ell}
+Mb=mm;Mt=0;info.meth='w';info.k=pp}
+const Ab=Math.max(flexAs(Mb,d),2000*t),At=Math.max(Mt>0?flexAs(Mt,d):0,2000*t),bb=pickBar(Ab),bt=pickBar(At),kg=(meshKg(bb,B,Ln)+meshKg(bt,B,Ln))*1.05;
+const rs1=qs/P.qa,ok=rs1<=1&&rs2<=1&&rp<=1&&bb.ok&&bt.ok&&isFinite(Ab)&&isFinite(At);
+return{t,rm,B,Ln,A,d,Wf,qs,qu,rs1,rs2,rp,pk,Mb,Mt,Ab,At,bb,bt,kg,ok,info,SNs,SNd}}
+function rdSize(Ls){const t0=P.type=='rc'?.4:.3;let last=null;
+for(let rm=.5;rm<=6;rm=+(rm+.25).toFixed(2)){for(let t=t0;t<=2.5;t=+(t+.05).toFixed(2)){const r=rdEval(t,rm,Ls);last=r;if(r.rs1>1)break;if(r.ok)return r}}
+return last}
+function fndSize(){if(!D)return;P.fs={};const Ls=fndLoads();
+if(P.ft=='radye'){const s=rdSize(Ls);if(s){P.rt=s.t;P.rm=s.rm}P.rdDone=1}
+else for(const k in Ls){const s=ftSize(Ls[k]);P.fs[k]={a:s.a,h:s.h}}}
+function fndDepth(){if(!D)return .6;if(P.ft=='radye')return P.rt||.5;let m=.3;for(const k in(P.fs||{}))m=Math.max(m,P.fs[k].h||0);return m}
+/* Tüm temel hesabı + metraj (qty() tarafından çağrılır) */
+function fndCalc(){const rc=P.type=='rc',Ls=fndLoads(),warn=[],E=m=>warn.push({t:'e',m}),Wn=m=>warn.push({t:'w',m}),gt=P.gt/100,gm=P.gm/100,wk=P.wk/100,ed=P.ed/100;
+P.fs=P.fs||{};FD={rc,ft:P.ft,Ls,warn,cls:{},rd:null,beton:[],kalip:[],donati:[],gro:[],fc:0};
+const f1=(x,d=2)=>x.toFixed(d);let fv=0,ff=0,gv=0,kz=0,kgT=0,ks='',gs='';
+if(P.ft!='radye'){let area=0;
+for(const k in Ls){const c=Ls[k];if(!P.fs[k]||!(P.fs[k].a>0)||!(P.fs[k].h>0)){const s=ftSize(c);P.fs[k]={a:s.a,h:s.h}}
+const{a,h}=P.fs[k],r=ftEval(c,a,h),n=c.n;FD.cls[k]={...c,a,h,r};FD.fc+=n;area+=n*a*a;
+const v=n*a*a*h,f=n*4*a*h,g=n*(a+2*gm)**2*gt,kzz=n*(a+2*gm+2*wk)**2*(h+gt+ed),kg=n*2*(Math.floor((a-.1)*1000/r.bar.s)+1)*(a-.1)*kgm(r.bar.d)*1.05;
+fv+=v;ff+=f;gv+=g;kz+=kzz;kgT+=kg;const nm=(rc?'':'')+c.name.replace(' temeli','');
+FD.beton.push({a:'Temel (tekil) – '+nm,n,q:v});FD.kalip.push({a:'Temel (tekil) – '+nm,q:f});
+FD.donati.push({a:'Temel – '+nm,q:kg,r:`Ø${r.bar.d}/${r.bar.s} çift yön · ${f1(kg/v,0)} kg/m³`});
+FD.gro.push({a:'Tekil temel altı grobeton – '+nm,q:g,s:`${n} adet ${f1(a+2*gm)}×${f1(a+2*gm)} m, t=${P.gt} cm`});
+ks+=(ks?'; ':'')+`${n} adet ${f1(a+2*gm+2*wk)}×${f1(a+2*gm+2*wk)} m, derinlik ${f1(h+gt+ed)} m (${nm})`;
+const pre=c.name+': ';
+if(r.rs>1)E(`${pre}taban gerilmesi σem'i aşıyor (${f1(r.s1,0)} / ${f1(r.s2,0)} kN/m²; σem ${P.qa}, kısa dönem ${1.5*P.qa}). Temel kenarını büyütün.`);
+if(r.ru>1)E(`${pre}rüzgâr kaldırması temel ağırlığını aşıyor (oran ${f1(r.ru)}). Temeli büyütün veya derinleştirin.`);
+if(r.rsl>1)E(`${pre}yatay kuvvet sürtünme dayanımını aşıyor (oran ${f1(r.rsl)}); kayma için bağ kirişi/radye düşünün.`);
+if(r.rp>1)E(`${pre}delme kontrolü sağlanmıyor (oran ${f1(r.rp)}; TS 500 Md. 8.3). Temel yüksekliğini artırın.`);
+if(r.rv>1)E(`${pre}kesme kontrolü sağlanmıyor (oran ${f1(r.rv)}; TS 500 Md. 8.1). Temel yüksekliğini artırın.`);
+if(!r.bar.ok||!isFinite(r.As))E(`${pre}eğilme donatısı Ø25/100 ile karşılanamıyor; temel yüksekliğini artırın.`);
+if(c.hmin&&h<c.hmin-1e-9)E(`${pre}temel yüksekliği ${f1(h)} m; ankraj gömme boyu için en az ${f1(c.hmin)} m olmalı.`);
+if(a<Math.max(c.cx,c.cy)+.3)E(`${pre}temel kenarı kolon/taban plakasına göre çok küçük.`);
+if(rc&&a>Math.min(P.ax,P.ay)-.2)E(`${pre}temel kenarı ${f1(a)} m aks aralığına sığmıyor; komşu temellerle çakışır. Radye seçin.`)}
+if(rc){const ar=D.W*D.L;if(ar>0&&area/ar>.5)Wn(`Tekil temel alanı plan alanının %${f1(area/ar*100,0)}'i; %50'yi aştığı için radye önerilir.`);
+Wn('Tekil temellerde bağ kirişi şarttır (TBDY-2018); taban momenti ve deprem eksenel yük değişimi bu ön boyutta yoktur.');if(P.pv)Wn('Perde duvar var: perde altı temel kolon yüklerinden ayrı hesaplanmalıdır; bu ön boyut yalnız kolonları kapsar.')}
+else Wn('Kolon tabanı mafsallı kabul edildi; ankastre taban varsa taban momenti temele ayrıca eklenmelidir.')}
+else{if(!P.rdDone||!(P.rt>0)){const s=rdSize(Ls);if(s){P.rt=s.t;P.rm=s.rm}P.rdDone=1}
+const r=rdEval(P.rt,P.rm,Ls);FD.rd=r;FD.fc=Object.values(Ls).reduce((t,x)=>t+x.n,0);
+fv=r.A*r.t;ff=2*(r.B+r.Ln)*r.t;gv=(r.B+2*gm)*(r.Ln+2*gm)*gt;kz=(r.B+2*gm+2*wk)*(r.Ln+2*gm+2*wk)*(r.t+gt+ed);kgT=r.kg;
+const nm='Temel (radye)';FD.beton.push({a:nm,n:1,q:fv});FD.kalip.push({a:nm,q:ff});
+FD.donati.push({a:'Temel (radye)',q:kgT,r:`Alt Ø${r.bb.d}/${r.bb.s} · üst Ø${r.bt.d}/${r.bt.s} · ${f1(kgT/fv,0)} kg/m³`});
+FD.gro.push({a:'Radye altı grobeton',q:gv,s:`${f1(r.B+2*gm)}×${f1(r.Ln+2*gm)} m, t=${P.gt} cm`});ks=`${f1(r.B+2*gm+2*wk)}×${f1(r.Ln+2*gm+2*wk)} m, derinlik ${f1(r.t+gt+ed)} m`;
+if(r.rs1>1)E(`Radye ortalama taban gerilmesi ${f1(r.qs,0)} kN/m² > σem ${P.qa}. Taşma payını (plan alanını) artırın.`);
+if(r.rs2>1)E(`Radye kolon altı zemin gerilmesi σem'i aşıyor (oran ${f1(r.rs2)}). Radye kalınlığını artırın.`);
+if(r.rp>1)E(`Radye delme kontrolü sağlanmıyor (${Ls[r.pk]?Ls[r.pk].name.replace(' temeli',''):''}; oran ${f1(r.rp)}). Radye kalınlığını artırın.`);
+if(!r.bb.ok||!r.bt.ok||!isFinite(r.Ab)||!isFinite(r.At))E('Radye eğilme donatısı Ø25/100 ile karşılanamıyor; kalınlığı artırın.');
+if(r.info.meth=='dd'&&r.info.sp>r.info.lim)Wn(`Kolon aralığı ${f1(r.info.sp)} m > 1,75/λ = ${f1(r.info.lim)} m: radye esnek davranır; rijit radye yöntemi yetersiz kalabilir, yay (Winkler) modelli sonlu eleman analizi yapın.`);
+if(rc&&P.pv)Wn('Perde duvar var: perde yükü ve devrilme momenti radyede ayrıca kontrol edilmelidir.');
+if(!rc)Wn('Çelik yapı radyesi: kolon yükleri zemine oturan plak (Westergaard, kenar yükü) ile boyutlandı; kolon aralığı büyükse sonlu eleman kontrolü önerilir.');
+Wn('Radyede alt/üst ağ tüm plana düzgün yayıldı (kolon şeridi yoğunlaştırması yok); detay tasarımda optimize edilebilir.')}
+const dg=kz-fv-gv;FD.kazi=[{a:P.ft=='radye'?'Radye kazısı':'Tekil temel kazısı',s:ks,q:kz}];FD.dolgu=[{a:'Temel çevresi geri dolgu',s:'Kazı − (temel betonu + grobeton)',q:dg}];FD.fazla=[{a:'Fazla hafriyat (nakliye)',s:'Kazı − geri dolgu',q:kz-dg}];
+FD.fv=fv;FD.kg=kgT;FD.warn=warn;return FD}
+function fndQty(){return fndCalc()}
+/* 3B çizim */
+function drawFnd(){if(!D||typeof THREE=='undefined')return;if(P.ft=='radye'){if(!P.rdDone||!(P.rt>0)){const s=rdSize(fndLoads());if(s){P.rt=s.t;P.rm=s.rm}P.rdDone=1}
+const B=D.W+2*P.rm,Ln=D.L+2*P.rm,f=new THREE.Mesh(new THREE.BoxGeometry(B,P.rt,Ln),new THREE.MeshStandardMaterial({color:0x9aa0a8}));f.position.set(D.W/2,-P.rt/2,-D.L/2);FN.add(f);return}
+const Ls=fndLoads();P.fs=P.fs||{};for(const k in Ls)if(!P.fs[k]||!(P.fs[k].a>0)){const s=ftSize(Ls[k]);P.fs[k]={a:s.a,h:s.h}}
+const fm=new THREE.MeshStandardMaterial({color:0x9aa0a8});fndCols().forEach(c=>{const s=P.fs[c.cls];if(!s)return;const f=new THREE.Mesh(new THREE.BoxGeometry(s.a,s.h,s.a),fm);f.position.set(c.x,-s.h/2,-c.y);FN.add(f)})}
+function fndVis(){const r=P.ft=='radye';[['hmin',!r],['rt',r],['rm',r],['ks',r]].forEach(([k,s])=>{const e=document.getElementById('n_'+k)||document.querySelector('#rcn [data-k='+k+']');if(e){e.hidden=!s;if(e.previousElementSibling)e.previousElementSibling.hidden=!s}})}
+//FND-END
+
 //UI-START
 let Q=null,szRC=0;
-const RCN=[['nk','Kat sayısı'],['hk','Kat yüksekliği (m)'],['nbx','X yönü açıklık adedi'],['nby','Y yönü açıklık adedi'],['ax','X aks aralığı (m)'],['ay','Y aks aralığı (m)'],['pl','Perde boyu (m)'],['pt','Perde kalınlığı (mm)'],['fa','Temel kenarı (m)'],['fd','Temel derinliği (m)'],['rt','Radye kalınlığı (m)']];
+const RCN=[['nk','Kat sayısı'],['hk','Kat yüksekliği (m)'],['nbx','X yönü açıklık adedi'],['nby','Y yönü açıklık adedi'],['ax','X aks aralığı (m)'],['ay','Y aks aralığı (m)'],['pl','Perde boyu (m)'],['pt','Perde kalınlığı (mm)'],['gw','Çevre duvar yükü (kN/m)'],['qa','Zemin emniyet gerilmesi σem (kN/m²)'],['ks','Yatak katsayısı ks (kN/m³)'],['hmin','Min. temel derinliği (m)'],['rt','Radye kalınlığı (m)'],['rm','Radye taşma payı (m)']];
 $('rcn').innerHTML=RCN.map(([k,l])=>`<span>${l}</span><input type="number" step="any" data-k="${k}">`).join('');
 const rcsync=()=>{RCN.forEach(([k])=>{const e=document.querySelector('#rcn [data-k='+k+']');if(document.activeElement!==e)e.value=P[k]});$('rft').value=P.ft=='radye'?'radye':'tekil';$('pv').checked=!!P.pv};
-$('rcn').addEventListener('input',e=>{const k=e.target.dataset.k,v=+e.target.value;if(!k||!(v>0))return;P[k]=v;/^(kx|ky|bw|bh)$/.test(k)?rebuild():autoRun()});
+$('rcn').addEventListener('input',e=>{const k=e.target.dataset.k,v=+e.target.value;if(!k||!(v>0))return;P[k]=v;/^(kx|ky|bw|bh|rt|rm)$/.test(k)?rebuild():autoRun()});
 $('rft').onchange=e=>{P.ft=e.target.value;rebuild()};$('pv').onchange=e=>{P.pv=e.target.checked?1:0;rebuild()};
-$('ty').onchange=e=>{const o=P.type,t=e.target.value;TM[o]={fa:P.fa,fd:P.fd,rt:P.rt};P.type=t;Object.assign(P,TM[t]);$('stp').style.display=$('sto').style.display=t=='steel'?'':'none';$('seis').hidden=t!='steel';if(t=='steel')szTable();$('rcp').style.display=t=='rc'?'':'none';if(t=='rc'){P.ft=P.ft=='radye'?'radye':'tekil';rcsync()}else{$('ft').value=P.ft;sync()}autoRun();view('Perspektif')};
+$('ty').onchange=e=>{const o=P.type,t=e.target.value;TM[o]={rt:P.rt,hmin:P.hmin};P.fs={};P.rdDone=0;P.type=t;Object.assign(P,TM[t]);$('stp').style.display=$('sto').style.display=t=='steel'?'':'none';$('seis').hidden=t!='steel';if(t=='steel')szTable();$('rcp').style.display=t=='rc'?'':'none';if(t=='rc'){P.ft=P.ft=='radye'?'radye':'tekil';rcsync()}else{$('ft').value=P.ft;sync()}autoRun();view('Perspektif')};
 const _sr=sizeRun;sizeRun=function(){if(P.type=='rc'){sizeRC();rcsync();rebuild()}else _sr()};
 const _sels=sels;sels=function(){_sels();const m=M.find(q=>q.id==sel);if(m&&/^rc/.test(m.r)){const s=$('sp');if(s)s.parentNode.innerHTML=`<span>Kesit ${LIB[pf(m)].h}×${LIB[pf(m)].b} mm (sol panelden değiştirilir)</span>`}};
-const _rb=rebuild;rebuild=function(){_rb();if(P.type=='rc'&&P.ft!='radye'){const fm=new THREE.MeshStandardMaterial({color:0x9aa0a8});M.filter(m=>m.r=='rcKolon'&&m.a[2]==0).forEach(m=>{const f=new THREE.Mesh(new THREE.BoxGeometry(P.fa,P.fd,P.fa),fm);f.position.set(m.a[0],-P.fd/2,-m.a[1]);FN.add(f)})}fin()};
+const _rb=rebuild;rebuild=function(){_rb();fin()};
 const f2=(x,d=2)=>x.toLocaleString('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d});
 const tbl=(h,rows,tot)=>`<table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows.map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}<tr style="font-weight:600"><td>${tot[0]}</td>${tot.slice(1).map(x=>`<td>${x}</td>`).join('')}</tr></table>`;
 const inp=(k,l,u,st)=>`<div class="r" style="align-items:center"><span style="flex:2">${l}</span><input type="number" step="${st||'any'}" data-p="${k}" value="${P[k]}" style="flex:1"><span style="flex:0 0 40px;color:var(--m)">${u}</span></div>`;
 function tabs(q){const rc=P.type=='rc',sp=(a,b)=>`<p style="color:var(--m);font-size:11px;margin:6px 0 0">${a}</p>`;
-$('t1').innerHTML=`<h3>Beton metrajı</h3><div class="r" style="align-items:center"><span style="flex:2">Beton sınıfı</span><select data-p="fck" style="flex:1">${Object.entries(BC).map(([k,v])=>`<option value="${k}"${k==P.fck?' selected':''}>${v}</option>`).join('')}</select></div>`+(P.ft=='kazik'?inp('plen','Kazık boyu','m'):'')+tbl(['Eleman','Adet','m³'],q.beton.map(r=>[r.a,r.n,f2(r.q)]),['Toplam','',f2(q.tb)]);
+$('t1').innerHTML=`<h3>Beton metrajı</h3><div class="r" style="align-items:center"><span style="flex:2">Beton sınıfı</span><select data-p="fck" style="flex:1">${Object.entries(BC).map(([k,v])=>`<option value="${k}"${k==P.fck?' selected':''}>${v}</option>`).join('')}</select></div>`+tbl(['Eleman','Adet','m³'],q.beton.map(r=>[r.a,r.n,f2(r.q)]),['Toplam','',f2(q.tb)]);
 $('t2').innerHTML=`<h3>Kalıp metrajı</h3>`+tbl(['Eleman','m²'],q.kalip.map(r=>[r.a,f2(r.q)]),['Toplam',f2(q.tk)]);
-$('t3').innerHTML=`<h3>Donatı metrajı</h3>`+(rc?inp('rho','Kolon boyuna oran','%','.1')+inp('rbB','Kiriş','kg/m³')+inp('rbS','Döşeme','kg/m³')+inp('rbW','Perde','kg/m³'):'')+inp('rbF','Temel','kg/m³')+tbl(['Eleman','Oran','kg','ton'],q.donati.map(r=>[r.a,r.r,f2(r.q,0),f2(r.q/1e3,3)]),['Toplam','',f2(q.td,0),f2(q.td/1e3,3)]);
+$('t3').innerHTML=`<h3>Donatı metrajı</h3>`+(rc?inp('rho','Kolon boyuna oran','%','.1')+inp('rbB','Kiriş','kg/m³')+inp('rbS','Döşeme','kg/m³')+inp('rbW','Perde','kg/m³'):'')+tbl(['Eleman','Oran','kg','ton'],q.donati.map(r=>[r.a,r.r,f2(r.q,0),f2(r.q/1e3,3)]),['Toplam','',f2(q.td,0),f2(q.td/1e3,3)]);
 $('t4').innerHTML=`<h3>Grobeton metrajı</h3>`+inp('gt','Grobeton kalınlığı','cm')+inp('gm','Taşma payı (her kenar)','cm')+tbl(['Kalem','Ölçü','m³'],q.grobeton.map(r=>[r.a,r.s,f2(r.q)]),['Toplam','',f2(q.tg)]);
-$('t5').innerHTML=`<h3>Kazı ve dolgu metrajı</h3>`+inp('wk','Çalışma payı (her kenar)','cm')+inp('ed','Temel üstü toprak örtüsü','cm')+tbl(['Kalem','Ölçü','m³'],[...q.kazi,...q.dolgu,...q.fazla].map(r=>[r.a,r.s,f2(r.q)]),['Kazı','',f2(q.tkz)])+sp('Kazı derinliği = temel yüksekliği + grobeton + toprak örtüsü. Dolgu = kazı − (temel betonu + grobeton). Düşey kazı kabul edilmiştir; şev, iksa ve zemin kabarma payı dahil değildir.');$('t6').innerHTML=rc?'':ancTab(q)}
+$('t5').innerHTML=`<h3>Kazı ve dolgu metrajı</h3>`+inp('wk','Çalışma payı (her kenar)','cm')+inp('ed','Temel üstü toprak örtüsü','cm')+tbl(['Kalem','Ölçü','m³'],[...q.kazi,...q.dolgu,...q.fazla].map(r=>[r.a,r.s,f2(r.q)]),['Kazı','',f2(q.tkz)])+sp('Kazı derinliği = temel yüksekliği + grobeton + toprak örtüsü. Dolgu = kazı − (temel betonu + grobeton). Düşey kazı kabul edilmiştir; şev, iksa ve zemin kabarma payı dahil değildir.');$('t6').innerHTML=rc?'':ancTab(q);$('t7').innerHTML=fndTab();$('fnd').hidden=false;$('fnd').innerHTML=fndSum()}
 function ancTab(q){const ad=q.anc.reduce((t,a)=>t+a.q,0);return`<h3>Ankraj bulonu imali ve yerine konması</h3>`+tbl(['Kolon','Bulon','Gömme/Boy','Adet','kg'],q.anc.map(a=>[a.n,`${a.nb}×M${a.d}`,`${a.hef}/${a.L}`,`${a.q} (${a.c}×${a.nb})`,f2(a.w,0)]),['Toplam','','',ad,f2(q.tanc,0)+' kg · '+f2(q.tanc/1e3,3)+' t'])+`<p style="color:var(--m);font-size:11px;margin:6px 0 0">Bulon adedi ve çapı kolon derinliğine göre seçilir (vinç varsa bir çap büyür). Gömme = 15×çap (en az 400 mm), boy = gömme + 150 mm. Ağırlığa somun ve rondela için %10 eklenmiştir.</p>`}
-function fin(){{const r=P.ft=='radye',e=$('n_rt');if(e){e.hidden=!r;e.previousElementSibling.hidden=!r}['n_ton','n_hc'].forEach(i=>{const x=$(i);if(x){x.hidden=!P.crane;x.previousElementSibling.hidden=!P.crane}})}const q=Q=qty(D),rc=P.type=='rc',b=(v,l)=>`<div><b>${v}</b><span>${l}</span></div>`;
+function fin(){{fndVis();['n_ton','n_hc'].forEach(i=>{const x=$(i);if(x){x.hidden=!P.crane;x.previousElementSibling.hidden=!P.crane}})}const q=Q=qty(D),rc=P.type=='rc',b=(v,l)=>`<div><b>${v}</b><span>${l}</span></div>`;
 $('wr').innerHTML=chk().map(c=>`<div class="wn ${c.t}">${c.m}</div>`).join('');tabs(q);
 $('kp').innerHTML=(rc?'':b(f2(q.tw/1e3,1)+' t','Çelik · '+f2(q.tw/(D.W*D.L),0)+' kg/m²')+b(f2(q.tanc/1e3,2)+' t','Ankraj · '+q.anc.reduce((t,a)=>t+a.q,0)+' ad'))+b(f2(q.tb,1)+' m³','Beton')+b(f2(q.tk,0)+' m²','Kalıp')+b(f2(q.td/1e3,1)+' t','Donatı')+b(f2(q.tg,1)+' m³','Grobeton')+b(f2(q.tkz,1)+' m³','Kazı')+b(f2(q.tdl,1)+' m³','Dolgu');
 $('hb').hidden=$('bom').hidden=rc;$('anc').innerHTML='';tb.children[6].hidden=rc;if(rc&&!$('t6').hidden)tb.children[0].click();
 if(rc){const s=P.loc&&P.Ss?P.Ss*FSf(P.zs,P.Ss):0;$('sz').innerHTML=(P.loc?`Deprem DD-${P.dd} · ${P.zs} · SDS ${s.toFixed(2)} g`:'Bölge seçilmedi')+`<table><tr><th>Grup</th><th>Seçilen</th></tr><tr><td>Kolon</td><td>${P.kx}×${P.ky} mm</td></tr><tr><td>Kiriş</td><td>${P.bw}×${P.bh} mm</td></tr><tr><td>Döşeme</td><td>${P.ts} mm</td></tr></table><div style="margin-top:8px;font-size:11px;color:var(--m)">Yük kabulü (TS 498): ek ölü ${P.gq.toFixed(1)} · hareketli ${P.qs.toFixed(1)} kN/m². Kolon: 1,4G+1,6Q ≤ ${(P.eta||.3).toFixed(2)}·Ac·fck, kiriş h ≈ açıklık/10, döşeme h ≈ kısa açıklık/30.</div>`;szRC=1}
 else if(szRC){szRC=0;$('sz').textContent='Bölge seçin veya “Optimum kesitleri seç” düğmesine basın.'}}
-$('R').addEventListener('change',e=>{const k=e.target.dataset.p;if(k){P[k]=+e.target.value;k=='fck'?autoRun():rebuild()}});
-const tb=$('tabs');tb.innerHTML=['Özet','Beton','Kalıp','Donatı','Grobeton','Kazı/Dolgu','Ankraj'].map((n,i)=>`<button data-i="${i}"${i?'':' class="on"'}>${n}</button>`).join('');
-tb.onclick=e=>{const i=e.target.dataset.i;if(i==null)return;[...tb.children].forEach(b=>b.classList.toggle('on',b.dataset.i==i));for(let j=0;j<7;j++)$('t'+j).hidden=j!=i};
+$('R').addEventListener('change',e=>{const k=e.target.dataset.p;if(k){P[k]=+e.target.value;/^(qa|ks|hmin)$/.test(k)?(fndSize(),P.type=='rc'?rcsync():sync(),rebuild()):k=='fck'?autoRun():rebuild()}});
+const tb=$('tabs');tb.innerHTML=['Özet','Beton','Kalıp','Donatı','Grobeton','Kazı/Dolgu','Ankraj','Temel'].map((n,i)=>`<button data-i="${i}"${i?'':' class="on"'}>${n}</button>`).join('');
+tb.onclick=e=>{const i=e.target.dataset.i;if(i==null)return;[...tb.children].forEach(b=>b.classList.toggle('on',b.dataset.i==i));for(let j=0;j<8;j++)$('t'+j).hidden=j!=i};
 async function dlx(name,bytes){try{const d=window.claude&&await claude.use('downloads');if(d){await d.save({filename:name,data:bytes});return true}}catch(x){if(x&&x.code=='declined')return false}
 const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([bytes],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));a.download=name;document.body.appendChild(a);a.click();a.remove();return true}
 /* ===== KEŞİF EXPORT — Endüstriyel Yapı Metraj ve Keşif Aracı şablonu ===== */
@@ -428,6 +537,45 @@ let n=0,row=3;rows.forEach(([p,q,x])=>{n++;row++;const nm=KNM[p]||[p,''],v=[n,p.
 v.forEach((x,i)=>{const c=ws.getCell(row,i+1);c.value=x;c.font=Ar(false);c.alignment=cen;c.border={top:thin,bottom:thin,left:thin,right:thin};if(i>=5)c.numFmt='#,##0.00'});ws.getRow(row).height=30});
 const arr=await wb.xlsx.writeBuffer();if(await dlx(ttl.replace(/[\\/:*?"<>|]/g,'').trim().replace(/\s+/g,'_').slice(0,80)+'_insaat_kesif_'+(P.type=='rc'?'betonarme':'celik')+'.xlsx',new Uint8Array(arr)))toast('Excel keşif dosyası şablon düzeninde hazırlandı')}
 $('xb').onclick=()=>{kesifExport().catch(x=>toast('Excel oluşturulamadı: '+(x&&x.message||x)))};
+
+//FND-UI-START
+function fndTab(){if(!FD)return'';const f=(x,d=2)=>f2(x,d),bad=v=>v>1?' style="color:#e11"':'',mk=v=>v>1?' ⚠':'',row=(l,v,s)=>`<tr><td>${l}</td><td${s||''}>${v}</td></tr>`,num=(k,w,v)=>`<input type="number" step=".05" data-fs="${k}|${w}" value="${v}">`;
+let h=`<h3>Temel hesabı · ${FD.ft=='radye'?'Radye':'Tekil temel'}</h3>`+inp('qa','Zemin emniyet gerilmesi σem','kN/m²')+(FD.ft=='radye'?inp('ks','Yatak katsayısı ks','kN/m³'):inp('hmin','Min. temel derinliği','m'));
+if(FD.ft=='radye'){const r=FD.rd,ok=r.ok;
+h+=`<div class="fc"><b>Radye</b>${ok?'':' <span style="color:#e11">⚠ yetersiz</span>'}<table>`+
+row('Plan boyutu',`${f(r.B,1)} × ${f(r.Ln,1)} m`)+
+row('Kalınlık t (m)',`<input type="number" step=".05" data-p="rt" value="${r.t}">`)+
+row('Taşma payı (m)',`<input type="number" step=".05" data-p="rm" value="${r.rm}">`)+
+row('Yük toplamı (servis / hesap)',`${f(r.SNs,0)} / ${f(r.SNd,0)} kN`)+
+row('Ort. zemin gerilmesi',`${f(r.qs,0)} / ${f(P.qa,0)} kN/m²`,bad(r.rs1))+
+(r.info.meth=='w'?row('Kolon altı zemin gerilmesi',`oran ${f(r.rs2)}${mk(r.rs2)}`,bad(r.rs2)):'')+
+row('Delme oranı',`${f(r.rp)}${mk(r.rp)}`,bad(r.rp))+
+row('Alt moment · üst moment',`${f(r.Mb,0)} · ${f(r.Mt,0)} kNm/m`)+
+row('Alt donatı (iki yön)',`Ø${r.bb.d}/${r.bb.s}`)+row('Üst donatı (iki yön)',`Ø${r.bt.d}/${r.bt.s}`)+
+row('Beton · donatı',`${f(FD.fv,1)} m³ · ${f(r.kg/1e3,2)} t (${f(r.kg/FD.fv,0)} kg/m³)`)+
+`</table><div style="color:var(--m);font-size:11px">${r.info.meth=='dd'?'Rijit radye (ters döşeme, doğrudan tasarım yöntemi): alt M = 0,122·qu·ln², üst M = 0,053·qu·ln²':'Zemine oturan plak (Westergaard, kenar yükü): M = 0,0953·P·[4·log(ℓ/b)+0,359]'}</div></div>`}
+else for(const k in FD.cls){const c=FD.cls[k],r=c.r,ok=ftOK(r);
+h+=`<div class="fc"><b>${c.name}</b> · ${c.n} adet${ok?'':' <span style="color:#e11">⚠ yetersiz</span>'}<table>`+
+row('Yük (servis / hesap)',`${f(c.Ns,0)} / ${f(c.Nd,0)} kN`)+
+(c.Hs>0?row('Yatay kuvvet · moment',`${f(c.Hs,0)} kN · ${f(c.Mc,0)} kNm`):'')+
+row('Kenar a × a (m)',num(k,'a',c.a))+row('Yükseklik h (m)',num(k,'h',c.h))+
+row('Zemin gerilmesi (kN/m²)',`${f(r.s1,0)} · ${f(r.s2,0)}${mk(r.rs)}`,bad(r.rs))+
+row('Delme · kesme oranı',`${f(r.rp)} · ${f(r.rv)}${mk(Math.max(r.rp,r.rv))}`,bad(Math.max(r.rp,r.rv)))+
+(c.Nup>0?row('Kaldırma (ağırlık) oranı',`${f(r.ru)}${mk(r.ru)}`,bad(r.ru)):'')+
+(c.Hs>0?row('Kayma oranı',`${f(r.rsl)}${mk(r.rsl)}`,bad(r.rsl)):'')+
+row('Eğilme momenti',`${f(r.Mu,0)} kNm/m`)+
+row('Alt donatı (iki yön)',`<b>Ø${r.bar.d}/${r.bar.s}</b> (${f(r.bar.As,0)} mm²/m)`)+
+`</table></div>`}
+h+=`<p style="color:var(--m);font-size:11px;margin:6px 0 0">Yöntem: zemin gerilmeleri servis yükleriyle (kısa dönem ×1,5), betonarme TS 500’e göre 1,4G+1,6Q hesap yükleriyle kontrol edilir. Beton C${P.fck}, donatı B420C, paspayı 5 cm, As,min = 0,002·b·h. σem ve ks zemin etüdünden alınmalıdır (varsayılan değerler ön kabuldür). Boyutlar elle değiştirilebilir; oranlar anında güncellenir, “Optimum kesitleri seç” hepsini yeniden hesaplar. Donma derinliği, oturma, sıvılaşma ve bağ kirişi ayrıca kontrol edilmelidir.</p>`;return h}
+function fndSum(){if(!FD)return'';const f=(x,d=2)=>f2(x,d);let s='<h3>Temel</h3><div style="font-size:12px;line-height:1.6">';
+if(FD.ft=='radye'){const r=FD.rd;s+=`<b>Radye</b> ${f(r.B,1)} × ${f(r.Ln,1)} m, t = ${f(r.t)} m<br>Alt Ø${r.bb.d}/${r.bb.s} · üst Ø${r.bt.d}/${r.bt.s} (iki yön)<br>Ort. zemin gerilmesi ${f(r.qs,0)} / ${f(P.qa,0)} kN/m²<br>`}
+else for(const k in FD.cls){const c=FD.cls[k];s+=`<b>${c.name.replace(' temeli','')}</b> ${c.n} adet · ${f(c.a)}×${f(c.a)}×${f(c.h)} m · Ø${c.r.bar.d}/${c.r.bar.s} (iki yön)<br>`}
+return s+`<span style="color:var(--m)">Beton ${f(FD.fv,1)} m³ · Donatı ${f(FD.kg/1e3,2)} t · ayrıntı: Temel sekmesi</span></div>`}
+const _sr2=sizeRun;sizeRun=function(){_sr2();fndSize();P.type=='rc'?rcsync():sync();rebuild()};
+$('ft').onchange=e=>{P.ft=e.target.value;P.rdDone=0;fndSize();sync();rebuild()};
+$('rft').onchange=e=>{P.ft=e.target.value;P.rdDone=0;fndSize();rcsync();rebuild()};
+$('R').addEventListener('change',e=>{const f=e.target.dataset.fs;if(!f)return;const[k,w]=f.split('|'),v=+e.target.value;if(!(v>=.3))return;(P.fs[k]=P.fs[k]||{a:1,h:.6})[w]=v;rebuild()});
+//FND-UI-END
 roles();rcsync();rebuild();
 //UI-END
 </script></body></html>
