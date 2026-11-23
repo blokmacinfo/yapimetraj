@@ -463,10 +463,9 @@ if(r.rs1>1)E(`Radye ortalama taban gerilmesi ${f1(r.qs,0)} kN/m² > σem ${P.qa}
 if(r.rs2>1)E(`Radye kolon altı zemin gerilmesi σem'i aşıyor (oran ${f1(r.rs2)}). Radye kalınlığını artırın.`);
 if(r.rp>1)E(`Radye delme kontrolü sağlanmıyor (${Ls[r.pk]?Ls[r.pk].name.replace(' temeli',''):''}; oran ${f1(r.rp)}). Radye kalınlığını artırın.`);
 if(!r.bb.ok||!r.bt.ok||!isFinite(r.Ab)||!isFinite(r.At))E('Radye eğilme donatısı Ø25/100 ile karşılanamıyor; kalınlığı artırın.');
-if(r.info.meth=='dd'&&r.info.sp>r.info.lim)Wn(`Kolon aralığı ${f1(r.info.sp)} m > 1,75/λ = ${f1(r.info.lim)} m: radye esnek davranır; rijit radye yöntemi yetersiz kalabilir, yay (Winkler) modelli sonlu eleman analizi yapın.`);
+if(r.info.meth=='dd'&&r.info.sp>r.info.lim)E(`Kolon aralığı ${f1(r.info.sp)} m > 1,75/λ = ${f1(r.info.lim)} m: radye esnek davranır; rijit radye yöntemi yetersiz kalabilir, yay (Winkler) modelli sonlu eleman analizi yapın.`);
 if(rc&&P.pv)Wn('Perde duvar var: perde yükü ve devrilme momenti radyede ayrıca kontrol edilmelidir.');
-if(!rc)Wn('Çelik yapı radyesi: kolon yükleri zemine oturan plak (Westergaard, kenar yükü) ile boyutlandı; kolon aralığı büyükse sonlu eleman kontrolü önerilir.');
-Wn('Radyede alt/üst ağ tüm plana düzgün yayıldı (kolon şeridi yoğunlaştırması yok); detay tasarımda optimize edilebilir.')}
+}
 const dg=kz-fv-gv;FD.kazi=[{a:P.ft=='radye'?'Radye kazısı':'Tekil temel kazısı',s:ks,q:kz}];FD.dolgu=[{a:'Temel çevresi geri dolgu',s:'Kazı − (temel betonu + grobeton)',q:dg}];FD.fazla=[{a:'Fazla hafriyat (nakliye)',s:'Kazı − geri dolgu',q:kz-dg}];
 FD.fv=fv;FD.kg=kgT;FD.warn=warn;return FD}
 function fndQty(){return fndCalc()}
